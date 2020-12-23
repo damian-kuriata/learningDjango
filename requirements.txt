@@ -3,3 +3,6 @@ gunicorn
 django-heroku
 django-storages
 boto
+dj-database-url
+whitenoise
+psycopg2
