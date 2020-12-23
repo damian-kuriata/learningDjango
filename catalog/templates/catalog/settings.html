@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{{ user.username }}|settings{% endblock %}
+{% block content %}
+    <header>
+        <h1 class="main-header">{{ user.username }} - settings</h1>
+    </header>
+    <div class="main-container">
+        <div class="images-pane">
+            <h2>Images management</h2>
+            <select id="options" name="options">
+                <option>--Select an option--</option>
+                <option value="delete">Delete</option>
+            </select>
+            <button type="button" id="go-button">Go</button>
+            {% for image in user.uploadedimage_set.all %}
+                <div>
+                    <img src="{{ image.image.url }}" alt="User-uploaded image">
+                    <input type="checkbox" name="selected-image" value="{{ image.id }}">
+                </div>
+            {% endfor %}
+        </div>
+        <div class="settings-pane">
+            <h2>Settings</h2>
+        </div>
+    </div>
+
+{% endblock %}

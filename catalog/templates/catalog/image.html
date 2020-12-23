@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% comment %} In title, display only 43 first characters of image title, for seo optimization {% endcomment %}
+{% block title %}Imgify|{{ image.title|slice:":43" }}{% endblock %}
+{% block content %}
+    <header>
+        <h1 class="main-header">{{ image.title }}</h1>
+    </header>
+    <div class="image-container-full">
+        <img src="{{ image.image.url }}" alt="User-uploaded image">
+        <p>{{ image.description }}</p>
+        <p>
+            Uploaded by: <a href="{% url 'user' id=image.author_id %}">{{ image.author.get_username }}</a>
+        </p>
+        <p>Upload time: {{ image.upload_datetime }}</p>
+        <p>
+            Image url: <span><a href="{{ request.build_absolute_uri }}">{{ request.build_absolute_uri }}</a></span>
+        </p>
+        <h3>Comments:</h3>
+        <div class="comments-container">
+            {% for comment in image.comment_set.all %}
+                <p>
+                    <a href="{{ comment.author.get_absolute_url }}">{{ comment.author.username }}</a> wrote: {{ comment }}
+                </p>
+            {% endfor %}
+        </div>
+        <div class="comment-input-container">
+            <textarea id="comment-input" placeholder="Share your mind..."></textarea>
+            <button type="button" id="writeButton">Write</button>
+        </div>
+    </div>
+{% endblock %}

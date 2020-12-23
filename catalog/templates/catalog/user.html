@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}User: {{ user.username }}{% endblock %}
+{% block content %}
+    <header>
+        <h1 class="main-header">{{ user.username }}</h1>
+    </header>
+    <div class="images-preview">
+        {% for image in images %}
+        <p class="image-title-thumb">{{ image.title }}</p>
+        <a href="{{ image.get_absolute_url }}">
+            <img src="{{ image.image.url }}" alt="User uploaded image">
+        </a>
+        {% endfor %}
+    </div>
+{% endblock %}

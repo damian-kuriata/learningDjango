@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Imgify|Sign In{% endblock %}
+{% block content %}
+  <h1 class="main-header">Login</h1>
+  {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+
+  <form method="post" id="login-form">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+        <ul class="non-field-errors">
+        {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <div>
+        <label for="{{ form.username.id_for_label }}">Username:</label>
+        {{ form.username }} <span>{{ form.username.help_text }}</span>
+        {% if form.username.errors %}
+            <ul class="field-errors">
+                {% for error in form.username.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div>
+        <label for="{{ form.password.id_for_label }}">Password:</label>
+        {{ form.password }} <span>{{ form.password.help_text }}</span>
+        {% if form.password.errors %}
+            <ul class="field-errors">
+                {% for error in form.password.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div>
+        <input type="submit" value="Login"/>
+    </div>
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+
+  {# Assumes you setup the password_reset view in your URLconf #}
+  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+
+{% endblock %}

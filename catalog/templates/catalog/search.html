@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Imgify|search results{% endblock %}
+{% block content %}
+    <h1 class="main-header">Search results</h1>
+    <article>
+        <h2 class="results-header">Found by title</h2>
+        <div class="results-container">
+            {% for image in images_title %}
+                <p class="title-paragraph">
+                    <a href="{% url 'image' image_id=image.id %}">{{ image.title }}</a>
+                </p>
+            {% endfor %}
+        </div>
+        <h2 class="results-header">Found by description</h2>
+        <div class="results-container">
+            {% for image in images_desc %}
+                {% if image.title|lower != image.description|lower %}
+                <p class="title-paragraph">
+                    <a href="{% url 'image' image_id=image.id %}">{{ image.title }}</a>
+                </p>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <h2 class="results-header">Users found</h2>
+        <div class="results-container">
+            {% for user in users %}
+                <p class="title-paragraph">
+                    <a href="{% url 'user' id=user.id %}">{{ user.username }}</a>
+                </p>
+            {% endfor %}
+        </div>
+    </article>
+{% endblock %}

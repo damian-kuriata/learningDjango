@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Imgify|Main page{% endblock %}
+{% block content %}
+    <h1 class="main-header">Recently uploaded images</h1>
+    {% for image in images %}
+        <div class="image-container-thumb">
+            <figure>
+                <figcaption class="image-title-thumb">{{ image }}</figcaption>
+                <a href="{{ image.get_absolute_url }}" title="Click to view image page">
+                    <img width="500" height="500" class="image-thumb" src="{{ image.image.url }}" alt="User-uploaded image">
+                </a>
+            </figure>
+            <p class="image-description-thumb">{{ image.description|truncatechars:60 }}</p>
+            <p class="image-author-thumb">
+                Uploaded by: <a href="{% url 'user' id=image.author_id %}">{{ image.author.username }}</a>
+            </p>
+            {% load tz %}
+            <p class="image-upload-time-thumb">Upload time (UTC): {{ image.upload_datetime |utc }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block pagination %}
+    {{ block.super }}
+{% endblock %}

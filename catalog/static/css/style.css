@@ -1,0 +1,198 @@
+body {
+    font-size: 40px;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: black;
+    color: white;
+    position: relative;
+    min-height: 100vh;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+a:link {
+
+}
+a:visited {
+
+}
+a:focus{
+    color: #d1c9c9;
+}
+a:hover {
+    color:  #d1c9c9;
+}
+a:active {
+    color: #d1c9c9;
+}
+
+.navigation {
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 1 0;
+    border-bottom: 2px dashed white;
+    padding: 0.5em 0 0.5em 0;
+    font-size: .7em;
+}
+.navigation:first-child {
+    margin-left: 0.2em;
+}
+.navigation div {
+    margin-right: 0.2em;
+}
+.search-container {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    flex: 1 1 0;
+}
+.search-container input[type="search"] {
+    width: 10vw;
+}
+.search-button {
+    background: no-repeat url("../images/search.png");
+    border: none;
+    margin-left: 0.5em;
+}
+.search-button:hover {
+    opacity: .7;
+}
+.messages-container {
+    text-align: center;
+    width: 15vw;
+    height: 5vw;
+    font-size: 0.7em;
+    font-weight: bold;
+    margin: .5em;
+    z-index: 1;
+    position: fixed;
+    top: 1vw;
+}
+.messages-container p {
+    overflow: auto;
+    margin-bottom: .5em;
+    padding: .13em;
+}
+.main-header {
+    font-size: .9em;
+    margin-left: .3em;
+}
+.message-success {
+    background-color: rgba(15, 153, 5, .7);
+}
+.message-info {
+    background-color: rgba(251, 255, 0, .7);
+}
+.message-error {
+    background-color: rgba(194, 4, 23, .7);
+}
+.image-container-thumb {
+    margin: 0 0 1.5em .7em;
+    max-width: 30vw;
+    word-wrap: break-word;
+}
+
+.image-container-thumb img:hover {
+    opacity: .8;
+}
+.image-container-thumb figure {
+    margin: 0;
+}
+.image-container-thumb p {
+    font-size: .7em;
+    margin: .5em 0 0 0;
+}
+.image-description-thumb {
+    margin: 0;
+}
+.non-field-errors .field-errors{
+    color: red;
+    font-size: .5em;
+    display: block;
+}
+#upload-form div, #register-form div, #login-form div {
+    margin-left: .5em;
+    font-size: .6em;
+    display: flex;
+    align-items: center;
+    flex: 1 1 0;
+}
+#upload-form input, #register-form input, #login-form input, textarea {
+    margin-left: .5em;
+    margin-right: .5em;
+}
+.image-container-full {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    align-items: flex-start;
+    margin-left: .3em;
+}
+.image-container-full p span {
+    text-decoration: underline;
+}
+.image-container-full img {
+    margin-bottom: .5em;
+}
+.image-container-full p {
+    font-size: .6em;
+    margin: 0 0 .5em 0;
+}
+input[type=submit] {
+    margin: 0;
+}
+.help-text {
+    font-size: .5em;
+}
+textarea {
+    resize: none;
+}
+.comments-container {
+    border: 2px solid white;
+    padding: .2em;
+    width: 25vw;
+    min-height: 10vh;
+    max-height: 30vh;
+    overflow: auto;
+    font-size: .7em;
+}
+.comments-container p {
+    border-bottom: 2px solid rgba(255, 255, 255, .5);
+}
+h3 {
+    margin: 0;
+    padding: 0;
+}
+.comment-input-container {
+
+}
+#comment-input {
+
+}
+
+.pagination {
+    padding: .13em;
+    list-style: none;
+    display: inline-block;
+    font-size: .7em;
+    max-width: 20vw;
+    overflow-x: auto;
+    margin: 0;
+    white-space:nowrap;
+}
+
+.current-page-link {
+    color: red;
+}
+.footer {
+    font-size: 0.3em;
+    text-align: center;
+    font-weight: lighter;
+    /*margin-bottom: .7em;*/
+    position: absolute;
+    bottom: .5em;
+    right: 0;
+    left: 0;
+}

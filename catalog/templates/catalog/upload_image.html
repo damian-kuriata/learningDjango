@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Imgify|Upload image{% endblock %}
+{% block content %}
+    <h1 class="main-header">Upload image</h1>
+    <form method="post" enctype="multipart/form-data" id="upload-form">
+        {% csrf_token %}
+        <ul class="non-field-errors">
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        <div>
+            <label for="{{ form.title.id_for_label }}">Title:</label>
+            {{ form.title }} <span class="help-text">{{ form.title.help_text }}</span>
+            <ul class="field-errors">
+                {% for error in form.title.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <label for="{{ form.description.id_for_label }}">Description:</label>
+            {{ form.description }} <span class="help-text">{{ form.description.help_text }}</span>
+            <ul class="field-errors">
+                {% for error in form.title.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <label for="{{ form.image.id_for_label }}">Image:</label>
+            {{ form.image }} <span class="help-text">{{ form.image.help_text }}</span>
+            <ul class="field-errors">
+                {% for error in form.title.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <input type="submit" value="Save">
+        </div>
+    </form>
+{% endblock %}
