@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +27,6 @@ SECRET_KEY = '69(4w-4h0+3zq@(t9&1wr(@w!=-oaz#m5$yyuird+jyvt#1%m*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'catalog'
+    'catalog',
+    'storages',
+    'boto'
 ]
 
 MIDDLEWARE = [
@@ -81,10 +82,10 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "d2j7g39nr1u4tr",
-        'USER': 'llngswoekqjwbc',
-        'PASSWORD': 'f8e2eb427920b4892df72b97e01bfbbf277a24a8dcaaabf4869e78ea7da15500',
-        'HOST': "ec2-34-251-118-151.eu-west-1.compute.amazonaws.com",
+        'NAME': "dkqk492ejgc35",
+        'USER': 'lrrdnjwidhqrwt',
+        'PASSWORD': 'c905466aef1e98ebafe66a27b298bcc8a181b9fa9cc529f031c975c6bc8b64a7',
+        'HOST': "ec2-54-156-85-145.compute-1.amazonaws.com",
         'PORT': '5432',
     }
 
@@ -147,6 +148,11 @@ MEDIA_URL = "/uploaded-images/"
 MAX_UPLOAD_SIZE = 16 * 1024 * 1024 #16MB
 
 LOGOUT_REDIRECT_URL = reverse_lazy("index")
-CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = ["*"]
+if not DEBUG:
+   AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+   AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+   AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+   STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+   S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+   STATIC_URL = S3_URL
 django_heroku.settings(locals())
