@@ -6,3 +6,4 @@ boto
 dj-database-url
 whitenoise
 psycopg2
+python-gettext

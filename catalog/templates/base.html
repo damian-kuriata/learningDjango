@@ -7,17 +7,20 @@
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <title>{% block title %}{% endblock %}</title>
     </head>
+    {% load i18n %}
     <body>
         <nav>
             <div class="navigation">
-                <div><a href="{% url 'index' %}">Home</a></div>
-                <div><a href="{% url 'upload-image' %}">Upload image</a></div>
+            {% translate "This is the title" context "Title contex" as the_title %}
+            {{ the_title }}
+                <div><a href="{% url 'index' %}">{% translate 'Home'%}</a></div>
+                <div><a href="{% url 'upload-image' %}">{% translate 'Upload image'%}</a></div>
                 {% if user.is_authenticated %}
-                <div><a href="{% url 'user' id=user.id %}">Account</a></div>
-                <div><a href="{% url 'logout' %}">Logout</a></div>
+                <div><a href="{% url 'user' id=user.id %}">{% translate 'Account'%}</a></div>
+                <div><a href="{% url 'logout' %}">{% translate 'Logout' %}</a></div>
                 {% else %}
-                <div><a href="{% url 'register' %}">Register</a></div>
-                <div><a href="{% url 'login' %}">Login</a></div>
+                <div><a href="{% url 'register' %}">{% translate 'Register' %}</a></div>
+                <div><a href="{% url 'login' %}">{% translate 'Login' %}</a></div>
                 {% endif %}
                 <div class="search-container">
                     <input type="search" aria-label="Search through site">

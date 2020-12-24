@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.urls import reverse, reverse_lazy
+from django.utils.translation import gettext_lazy as _
 import django_heroku
 import dj_database_url
 
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -84,10 +86,10 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "dkqk492ejgc35",
-        'USER': 'lrrdnjwidhqrwt',
-        'PASSWORD': 'c905466aef1e98ebafe66a27b298bcc8a181b9fa9cc529f031c975c6bc8b64a7',
-        'HOST': "ec2-54-156-85-145.compute-1.amazonaws.com",
+        'NAME': "dbctfc06ffl657",
+        'USER': 'carpxhzgftdlfd',
+        'PASSWORD': '1585f125d39fb07c38fd1d3ccfa265498e3c6143f1120962879531f81f01d5fd',
+        'HOST': "ec2-3-216-129-140.compute-1.amazonaws.com",
         'PORT': '5432',
     }
 
@@ -150,6 +152,13 @@ MEDIA_URL = "/uploaded-images/"
 MAX_UPLOAD_SIZE = 16 * 1024 * 1024 #16MB
 
 LOGOUT_REDIRECT_URL = reverse_lazy("index")
+LANGUAGES = (
+    ("en-us", _("English")),
+    ("pl", _("Polish"))
+)
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)

@@ -11,6 +11,9 @@ from django.conf import settings
 from django.db.models.signals import pre_delete
 
 # Custom method that returns canoncial url to access object in HTTP
+from django.utils.translation import gettext_lazy
+
+
 def user_get_absolute_url(self):
     return reverse_lazy("user", args=[str(self.id)])
 
@@ -24,6 +27,8 @@ def file_size_validator(value):
 class UploadedImage(models.Model):
     class Meta:
         ordering = ["title"]
+        verbose_name = gettext_lazy("uploaded image")
+        verbose_name_plural = gettext_lazy("uploaded images")
 
     title = models.CharField(max_length=30,
                              help_text="Required. Max 30 character title for "
