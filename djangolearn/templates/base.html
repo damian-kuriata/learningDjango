@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    {% load i18n %}
+    <body>
+        <nav>
+            <div class="navigation">
+            {% translate "This is the title" context "Title contex" as the_title %}
+            {{ the_title }}
+                <div><a href="{% url 'index' %}">{% translate 'Home'%}</a></div>
+                <div><a href="{% url 'upload-image' %}">{% translate 'Upload image'%}</a></div>
+                {% if user.is_authenticated %}
+                <div><a href="{% url 'user' id=user.id %}">{% translate 'Account'%}</a></div>
+                <div><a href="{% url 'logout' %}">{% translate 'Logout' %}</a></div>
+                {% else %}
+                <div><a href="{% url 'register' %}">{% translate 'Register' %}</a></div>
+                <div><a href="{% url 'login' %}">{% translate 'Login' %}</a></div>
+                {% endif %}
+                <div class="search-container">
+                    <input type="search" aria-label="Search through site">
+                    <button class="search-button">Test</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="messages-container">
+            {% for message in messages %}
+            <p {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+                {{ message }}
+            </p>
+            {% endfor %}
+        </div>
+        <main>
+            {% block content %}{% endblock %}
+            {% block pagination %}
+                {% if page_obj.paginator.num_pages > 1 %}
+                <ul class="pagination">
+                    <span>Page: </span>
+                    {% for page_num in page_obj.paginator.page_range %}
+                    {% if page_num == page_obj.number %}
+                        <a class="current-page-link" href="{{ request.url }}?page={{ page_num }}">{{ page_num }}</a>
+                    {% else %}
+                        <a href="{{ request.url }}?page={{ page_num }}">{{ page_num }}</a>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            {% endblock %}
+        </main>
+
+        <footer>
+            <div class="footer">
+                <span>Created by Damian Kuriata. All rights reserved</span>
+            </div>
+        </footer>
+        <script src="{% static 'scripts/main.js' %}"></script>
+    </body>
+</html>

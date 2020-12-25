@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog',
+    'djangolearn',
     'storages',
     'boto'
 ]
@@ -47,14 +48,14 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 ROOT_URLCONF = 'learningDjango.urls'
@@ -83,13 +84,12 @@ WSGI_APPLICATION = 'learningDjango.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "dbctfc06ffl657",
-        'USER': 'carpxhzgftdlfd',
-        'PASSWORD': '1585f125d39fb07c38fd1d3ccfa265498e3c6143f1120962879531f81f01d5fd',
-        'HOST': "ec2-3-216-129-140.compute-1.amazonaws.com",
+        'NAME': "dbl2dm3b8qbhdm",
+        'USER': 'kdcvuzwwlhykno',
+        'PASSWORD': os.environ.get("DB_PASSWORD", "PASSWD"),
+        'HOST': "ec2-54-82-208-124.compute-1.amazonaws.com",
         'PORT': '5432',
     }
 
@@ -136,12 +136,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 LOGIN_REDIRECT_URL = reverse_lazy("index")
 
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "damian.kuriata2001@gmail.com"
-EMAIL_HOST_PASSWORD = "Kura_1234"
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 EMAIL_USE_TLS = True
 
 MEDIA_ROOT = "C:\\Users\\damia\\PycharmProjects\\learningDjango\\catalog\\media"
@@ -162,7 +164,7 @@ LOCALE_PATHS = [
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
-
+'''
 if not DEBUG:
    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
@@ -170,4 +172,5 @@ if not DEBUG:
    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
    STATIC_URL = S3_URL
+'''
 django_heroku.settings(locals())
