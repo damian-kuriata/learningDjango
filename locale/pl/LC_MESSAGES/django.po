@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-24 16:24+0100\n"
+"POT-Creation-Date: 2020-12-26 17:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,46 +20,98 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: .\catalog\templates\base.html:14
+#: .\catalog\models.py:30
+#, fuzzy
+#| msgid "Upload image"
+msgid "uploaded image"
+msgstr "Wgraj zdjęcie"
+
+#: .\catalog\models.py:31
+#, fuzzy
+#| msgid "Upload image"
+msgid "uploaded images"
+msgstr "Wgraj zdjęcie"
+
+#: .\catalog\templates\base.html:14 .\djangolearn\templates\base.html:14
+msgctxt "Title contex"
+msgid "This is the title"
+msgstr ""
+
+#: .\catalog\templates\base.html:16 .\djangolearn\templates\base.html:16
 msgid "Home"
 msgstr "Strona główna"
 
-#: .\catalog\templates\base.html:15
+#: .\catalog\templates\base.html:17 .\djangolearn\templates\base.html:17
 msgid "Upload image"
 msgstr "Wgraj zdjęcie"
 
-#: .\catalog\templates\base.html:17
+#: .\catalog\templates\base.html:19 .\djangolearn\templates\base.html:19
 msgid "Account"
 msgstr "Konto"
 
-#: .\catalog\templates\base.html:18
+#: .\catalog\templates\base.html:20 .\djangolearn\templates\base.html:20
 msgid "Logout"
 msgstr ""
 
-#: .\catalog\templates\base.html:20
+#: .\catalog\templates\base.html:22 .\djangolearn\templates\base.html:22
 msgid "Register"
 msgstr ""
 
-#: .\catalog\templates\base.html:21
+#: .\catalog\templates\base.html:23 .\djangolearn\templates\base.html:23
 msgid "Login"
 msgstr ""
 
-#: .\catalog\views.py:38
-#, python-format
-msgid "Only %(count)d object"
-msgid_plural "Multiple %(count)d objects"
-msgstr[0] "Tylko 1 obiekt"
-msgstr[1] "Wiele obiektów"
-msgstr[2] ""
-msgstr[3] ""
-
-#: .\learningDjango\settings.py:156
+#: .\djangolearn\models.py:23 .\learningDjango\settings.py:158
 msgid "English"
 msgstr "Angielski"
 
-#: .\learningDjango\settings.py:157
+#: .\djangolearn\models.py:24
+msgid "German"
+msgstr ""
+
+#: .\djangolearn\models.py:25
+msgid "French"
+msgstr ""
+
+#: .\djangolearn\models.py:26
+msgid "Spanish"
+msgstr ""
+
+#: .\djangolearn\models.py:27 .\learningDjango\settings.py:159
 msgid "Polish"
 msgstr "Polski"
+
+#: .\djangolearn\models.py:36
+msgid "language"
+msgstr "język"
+
+#: .\djangolearn\models.py:37
+msgid "languages"
+msgstr "języki"
+
+#: .\djangolearn\models.py:41
+msgid "non_translated_text"
+msgstr "nieprzetłumaczony tekst"
+
+#: .\djangolearn\models.py:42
+msgid "translated_text"
+msgstr "przetłumaczony tekst"
+
+#: .\djangolearn\models.py:46
+msgid "priority"
+msgstr "priorytet"
+
+#: .\djangolearn\models.py:48
+msgid "image"
+msgstr "zdjęcie"
+
+#: .\djangolearn\models.py:52
+msgid "phrase"
+msgstr "zdanie"
+
+#: .\djangolearn\models.py:53
+msgid "phrases"
+msgstr "zdania"
 
 #: .\venv\Lib\site-packages\_pytest\config\argparsing.py:445
 #, python-format
@@ -1250,3 +1302,11 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:409
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#, python-format
+#~ msgid "Only %(count)d object"
+#~ msgid_plural "Multiple %(count)d objects"
+#~ msgstr[0] "Tylko 1 obiekt"
+#~ msgstr[1] "Wiele obiektów"
+#~ msgstr[2] ""
+#~ msgstr[3] ""
