@@ -86,13 +86,13 @@ WSGI_APPLICATION = 'learningDjango.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "dbl2dm3b8qbhdm",
-        'USER': 'kdcvuzwwlhykno',
+        'NAME': "dfgr5mts54ti8m",
+        'USER': 'bjoamhsmjlfgxl',
         'PASSWORD': os.environ.get("DB_PASSWORD", "PASSWD"),
-        'HOST': "ec2-54-82-208-124.compute-1.amazonaws.com",
+        'HOST': "ec2-54-235-158-17.compute-1.amazonaws.com",
         'PORT': '5432',
+        'OPTIONS': {'sslmode': 'require'}
     }
-
 }
 
 
