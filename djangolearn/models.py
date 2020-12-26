@@ -9,16 +9,27 @@ from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator, MinValueValidator, \
     MaxValueValidator
 
-# TODO: Do filename checking.
 def get_upload_path(instance, filename):
     return os.path.join("phrase_images", instance.user.id, filename)
 
 
 class Language(models.Model):
-    # TODO: Restrict language name to predefined choices list.
+    LANG_ENGLISH = "en"
+    LANG_GERMAN = "de"
+    LANG_FRENCH = "fr"
+    LANG_SPANISH = "es"
+    LANG_POLISH = "pl"
+    LANG_CHOICES = (
+        (LANG_ENGLISH, _("English")),
+        (LANG_GERMAN, _("German")),
+        (LANG_FRENCH, _("French")),
+        (LANG_SPANISH, _("Spanish")),
+        (LANG_POLISH, _("Polish"))
+    )
     name = models.CharField(max_length=20,
                             validators=[RegexValidator("^[A-Z ]+$",
-                                        flags=re.I)])
+                                        flags=re.I)],
+                            choices=LANG_CHOICES)
 
     class Meta:
         ordering = ["name"]
