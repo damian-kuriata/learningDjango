@@ -146,8 +146,8 @@ EMAIL_HOST_USER = "damian.kuriata2001@gmail.com"
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 EMAIL_USE_TLS = True
 
-MEDIA_ROOT = "C:\\Users\\damia\\PycharmProjects\\learningDjango\\catalog\\media"
-MEDIA_URL = "/uploaded-images/"
+MEDIA_ROOT = "C:\\Users\\damia\\PycharmProjects\\learningDjango\\media"
+MEDIA_URL = "/uploaded/"
 
 # Custom setting. Restricts the maximum size of uploaded file.
 # When exceeded, ValidationError should be raised.

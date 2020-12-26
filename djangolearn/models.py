@@ -9,8 +9,9 @@ from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator, MinValueValidator, \
     MaxValueValidator
 
+
 def get_upload_path(instance, filename):
-    return os.path.join("phrase_images", instance.user.id, filename)
+    return os.path.join("phrase_images", str(instance.user.id), filename)
 
 # Todo implement 'get_absolute_url' for 'User' class
 
@@ -46,7 +47,7 @@ class Phrase(models.Model):
                                            help_text=_("Text you will translate"))
     translated_text = models.TextField(_("translated_text"))
     language = models.ForeignKey(Language, models.CASCADE)
-    user = models.ForeignKey(User, models.CASCADE,
+    user = models.ForeignKey(User, models.CASCADE, related_name=_("user"),
                              help_text=_("User who added a language"))
     # Number in range 0 to 10 indicating possibility of this phrase being selected
     priority = models.IntegerField(_("priority"), validators=[
