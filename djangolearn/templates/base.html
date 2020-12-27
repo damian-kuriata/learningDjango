@@ -9,26 +9,33 @@
     </head>
     {% load i18n %}
     <body>
+        <!-- Actual logo image will be displayed as a background image if site is displayed on desktop-->
+        <div class="logo-desktop"></div>
         <nav>
-            <div class="navigation">
-            {% translate "This is the title" context "Title contex" as the_title %}
-            {{ the_title }}
-                <div><a href="{% url 'index' %}">{% translate 'Home'%}</a></div>
-                <div><a href="{% url 'upload-image' %}">{% translate 'Upload image'%}</a></div>
-                {% if user.is_authenticated %}
-                <div><a href="{% url 'user' id=user.id %}">{% translate 'Account'%}</a></div>
-                <div><a href="{% url 'logout' %}">{% translate 'Logout' %}</a></div>
-                {% else %}
-                <div><a href="{% url 'register' %}">{% translate 'Register' %}</a></div>
-                <div><a href="{% url 'login' %}">{% translate 'Login' %}</a></div>
-                {% endif %}
+            {#  TODO: Change hrefs to actual urls#}
+            {# TODO: Add rolling button onclick in JS #}
+            <div class="navigation-rolling-button">Test</div>
+
+            <div class="navigation navigation-visible">
                 <div class="search-container">
-                    <input type="search" aria-label="Search through site">
-                    <button class="search-button">Test</button>
-                </div>
+                    <input type="search" aria-label="{% translate 'Search trough site' %}" placeholder="{% translate 'Search' %}">
+                    {# TODO: Add button onclick in JS #}
+                    <button class="search-button"></button>
+                 </div>
+                <div><a href="#">{% translate 'Learn' context 'Imperative' %}</a></div>
+                <div><a href="#">{% translate 'Your languages' %}</a></div>
+                <div><a href="#">{% translate 'Your phrases' %}</a></div>
+                <div><a href="#">{% translate 'Add language' %}</a></div>
+                <div><a href="#">{% translate 'Add phrases' %}</a></div>
+                <div><a href="#">{% translate 'Account settings' %}</a></div>
+                {% if user.is_authenticated %}
+                <div><a href="#">{% translate 'Logout' %}</a></div>
+                {% else %}
+                <div><a href="#">{% translate 'Sign Up' %}</a></div>
+                <div><a href="#">{% translate 'Sign In' %}</a></div>
+                {% endif %}
             </div>
         </nav>
-
         <div class="messages-container">
             {% for message in messages %}
             <p {% if message.tags %}class="{{ message.tags }}"{% endif %}>
@@ -38,6 +45,7 @@
         </div>
         <main>
             {% block content %}{% endblock %}
+            {% comment %}
             {% block pagination %}
                 {% if page_obj.paginator.num_pages > 1 %}
                 <ul class="pagination">
@@ -52,8 +60,9 @@
                 </ul>
                 {% endif %}
             {% endblock %}
-        </main>
+            {% endcomment %}
 
+        </main>
         <footer>
             <div class="footer">
                 <span>Created by Damian Kuriata. All rights reserved</span>
