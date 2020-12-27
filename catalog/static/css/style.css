@@ -3,14 +3,16 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background-color: black;
-    color: white;
+    background-color: #edf1f7;
     position: relative;
-    min-height: 100vh;
+    min-height: 93vh;
 }
 a {
     text-decoration: none;
     color: inherit;
+    transition-property: color;
+    transition-duration: .2s;
+    transition-timing-function: linear;
 }
 a:link {
 
@@ -22,7 +24,7 @@ a:focus{
     color: #d1c9c9;
 }
 a:hover {
-    color:  #d1c9c9;
+    color:  #b3a7a6;
 }
 a:active {
     color: #d1c9c9;
@@ -30,31 +32,50 @@ a:active {
 
 .navigation {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column;
+    align-items: center;
     flex: 1 1 0;
-    border-bottom: 2px dashed white;
     padding: 0.5em 0 0.5em 0;
     font-size: .7em;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(175, 190, 240, .9);
 }
-.navigation:first-child {
-    margin-left: 0.2em;
+.navigation-visible {
+    visibility: visible;
+}
+.navigation-hidden {
+    visibility: hidden;
+}
+.navigation-rolling-button {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    margin: 0;
+    padding: 0;
+    z-index: 3;
+    font-size: .7em;
+    background-image: url("../images/navigation.png")
 }
 .navigation div {
     margin-right: 0.2em;
 }
 .search-container {
-    margin-left: auto;
     display: flex;
     justify-content: flex-end;
     flex: 1 1 0;
 }
 .search-container input[type="search"] {
-    width: 10vw;
+    width: 10em;
 }
 .search-button {
     background: no-repeat url("../images/search.png");
     border: none;
-    margin-left: 0.5em;
+    margin-left: 0.2em;
+    width: 2em;
+    height: 2em;
 }
 .search-button:hover {
     opacity: .7;
@@ -68,7 +89,8 @@ a:active {
     margin: .5em;
     z-index: 1;
     position: fixed;
-    top: 1vw;
+    top: 10vh;
+    left: 10vw;
 }
 .messages-container p {
     overflow: auto;
