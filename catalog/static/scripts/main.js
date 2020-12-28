@@ -37,6 +37,10 @@ function getCookie(name) {
     const button = document.querySelector(".search-button");
     // TODO: Implement onclick
     button.onclick = () => {
-        ;
+        const search = document.querySelector(".search-container input[type='search']");
+        const searchQuery = search.value;
+        // Redirect to 'search' page
+        const location = "/djangolearn/search/" + searchQuery;
+        window.location.href = location;
     }
 })();
