@@ -14,12 +14,11 @@
         <nav>
             {#  TODO: Change hrefs to actual urls#}
             {# TODO: Add rolling button onclick in JS #}
-            <div class="navigation-rolling-button">Test</div>
+            <div class="navigation-rolling-button"></div>
 
             <div class="navigation navigation-visible">
                 <div class="search-container">
                     <input type="search" aria-label="{% translate 'Search trough site' %}" placeholder="{% translate 'Search' %}">
-                    {# TODO: Add button onclick in JS #}
                     <button class="search-button"></button>
                  </div>
                 <div><a href="#">{% translate 'Learn' context 'Imperative' %}</a></div>
@@ -37,6 +36,7 @@
             </div>
         </nav>
         <div class="messages-container">
+            <p class="message-info">Test</p>
             {% for message in messages %}
             <p {% if message.tags %}class="{{ message.tags }}"{% endif %}>
                 {{ message }}

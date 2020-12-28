@@ -1,13 +1,11 @@
-// TODO: Fix message removing
-const removingTimeout = 5000; // 1 seconds timeout
+const removingTimeout = 2000;
 function removeMessages() {
-    console.log("remove");
     let container = document.querySelector(".messages-container");
     while(container.firstChild) {
         container.removeChild(container.firstChild);
     }
 }
-removeMessages();
+// Remove messages when all DOM has been loaded
 document.addEventListener("DOMContentLoaded",() => {
     setTimeout(removeMessages, removingTimeout);
 });
@@ -28,17 +26,19 @@ function getCookie(name) {
 (function addNavigationRollingButtonOnclick() {
     const button = document.querySelector(".navigation-rolling-button");
     const navigation = document.querySelector(".navigation");
-    const navigationClass = navigation.getAttribute("class");
     // TODO: Repair showing
     button.onclick = () => {
-        console.log("click", navigation.style.visibility.valueOf());
-        let navigationShown = navigation.style.display !== "none";
-        if(navigationShown) {
-            // User sees navigation, now make it invisible
-            navigation.style.display = "none";
-        }
-        else {
-            navigation.style.display = navigationDisplay;
-        }
+        navigation.classList.toggle("navigation-hidden");
+    }
+})();
+(function addSearchButtonOnclick() {
+    const button = document.querySelector(".search-button");
+    // TODO: Implement onclick
+    button.onclick = () => {
+        const search = document.querySelector(".search-container input[type='search']");
+        const searchQuery = search.value;
+        // Redirect to 'search' page
+        const location = "/djangolearn/search/" + searchQuery;
+        window.location.href = location;
     }
 })();
