@@ -1,13 +1,11 @@
-// TODO: Fix message removing
-const removingTimeout = 5000; // 1 seconds timeout
+const removingTimeout = 2000;
 function removeMessages() {
-    console.log("remove");
     let container = document.querySelector(".messages-container");
     while(container.firstChild) {
         container.removeChild(container.firstChild);
     }
 }
-removeMessages();
+// Remove messages when all DOM has been loaded
 document.addEventListener("DOMContentLoaded",() => {
     setTimeout(removeMessages, removingTimeout);
 });

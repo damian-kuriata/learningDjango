@@ -92,15 +92,15 @@ a:active {
 }
 .messages-container {
     text-align: center;
-    width: 15vw;
-    height: 5vw;
+    width: 5em;
+    height: 3em;
     font-size: 0.7em;
     font-weight: bold;
-    margin: .5em;
+    margin: 0;
     z-index: 1;
     position: fixed;
     top: 10vh;
-    left: 10vw;
+    left: 0;
 }
 .messages-container p {
     overflow: auto;
