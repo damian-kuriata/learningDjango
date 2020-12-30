@@ -16,7 +16,7 @@
             {# TODO: Add rolling button onclick in JS #}
             <div class="navigation-rolling-button"></div>
 
-            <div class="navigation navigation-visible">
+            <div class="navigation navigation-hidden">
                 <div class="search-container">
                     <input type="search" aria-label="{% translate 'Search trough site' %}" placeholder="{% translate 'Search' %}">
                     <button class="search-button"></button>
@@ -28,10 +28,10 @@
                 <div><a href="#">{% translate 'Add phrases' %}</a></div>
                 <div><a href="#">{% translate 'Account settings' %}</a></div>
                 {% if user.is_authenticated %}
-                <div><a href="#">{% translate 'Logout' %}</a></div>
+                <div><a href="{% url 'logout' %}">{% translate 'Logout' %}</a></div>
                 {% else %}
-                <div><a href="#">{% translate 'Sign Up' %}</a></div>
-                <div><a href="#">{% translate 'Sign In' %}</a></div>
+                <div><a href="{% url 'register' %}">{% translate 'Sign Up' %}</a></div>
+                <div><a href="{% url 'login' %}">{% translate 'Sign In' %}</a></div>
                 {% endif %}
             </div>
         </nav>

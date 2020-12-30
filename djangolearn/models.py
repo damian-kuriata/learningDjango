@@ -1,6 +1,7 @@
 import re
 import os
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import pre_delete
@@ -17,22 +18,11 @@ def get_upload_path(instance, filename):
 
 
 class Language(models.Model):
-    LANG_ENGLISH = "en"
-    LANG_GERMAN = "de"
-    LANG_FRENCH = "fr"
-    LANG_SPANISH = "es"
-    LANG_POLISH = "pl"
-    LANG_CHOICES = (
-        (LANG_ENGLISH, _("English")),
-        (LANG_GERMAN, _("German")),
-        (LANG_FRENCH, _("French")),
-        (LANG_SPANISH, _("Spanish")),
-        (LANG_POLISH, _("Polish"))
-    )
     name = models.CharField(_("name"), max_length=20,
                             validators=[RegexValidator("^[A-Z ]+$",
                                         flags=re.I)],
-                            choices=LANG_CHOICES)
+                            choices=settings.LANG_CHOICES)
+    user = models.ForeignKey(User, models.CASCADE)
 
     class Meta:
         ordering = ["name"]
@@ -40,6 +30,8 @@ class Language(models.Model):
         verbose_name_plural = _("languages")
 
     # TODO: implement 'get_absolute_url' method
+    def __str__(self):
+        return self.name
 
 
 class Phrase(models.Model):
@@ -66,6 +58,8 @@ class Phrase(models.Model):
         verbose_name = _("phrase")
         verbose_name_plural = _("phrases")
     # Todo: implement 'get_absolute_url' method
+    def __str__(self):
+        return self.non_translated_text[:20]
 
 
 @receiver(pre_delete, sender=Phrase)

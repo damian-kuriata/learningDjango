@@ -8,5 +8,5 @@ class UploadedImageAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     pass
 
-admin.site.register(Comment, CommentAdmin)
-admin.site.register(UploadedImage, UploadedImageAdmin)
+#admin.site.register(Comment, CommentAdmin)
+#admin.site.register(UploadedImage, UploadedImageAdmin)

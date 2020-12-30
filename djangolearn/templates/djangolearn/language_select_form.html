@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate 'Select language' %}{% endblock %}
+
+{% block content %}
+    <h1 class="main-header">{% translate 'Select language to learn' %}</h1>
+    <form method="post" id="language-select-form">
+        {% csrf_token %}
+        <p>
+            <label for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
+        </p>
+        {{ form.language }}
+        <input type="submit" value="{% translate 'Select' %}">
+    </form>
+{% endblock %}

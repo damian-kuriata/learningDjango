@@ -86,15 +86,15 @@ WSGI_APPLICATION = 'learningDjango.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "dfgr5mts54ti8m",
-        'USER': 'bjoamhsmjlfgxl',
-        'PASSWORD': os.environ.get("DB_PASSWORD", "PASSWD"),
-        'HOST': "ec2-54-235-158-17.compute-1.amazonaws.com",
+        'NAME': "deibbr7o045r51",
+        'USER': 'xavzajlciugzjf',
+        'PASSWORD': 'dc87d16ecd859877b7140b1e77dfc72b9bba8bfc267d6f7470058f2648db2e7a',
+        'HOST': "ec2-54-211-99-192.compute-1.amazonaws.com",
         'PORT': '5432',
         'OPTIONS': {'sslmode': 'require'}
     }
 }
-
+print(DATABASES["default"]["PASSWORD"])
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -153,7 +153,7 @@ MEDIA_URL = "/uploaded/"
 # When exceeded, ValidationError should be raised.
 MAX_UPLOAD_SIZE = 16 * 1024 * 1024 #16MB
 
-LOGOUT_REDIRECT_URL = reverse_lazy("index")
+LOGOUT_REDIRECT_URL = reverse_lazy("login")
 LANGUAGES = (
     ("en-us", _("English")),
     ("pl", _("Polish"))
@@ -161,7 +161,18 @@ LANGUAGES = (
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
-
+LANG_ENGLISH = "en"
+LANG_GERMAN = "de"
+LANG_FRENCH = "fr"
+LANG_SPANISH = "es"
+LANG_POLISH = "pl"
+LANG_CHOICES = (
+    (LANG_ENGLISH, _("English")),
+    (LANG_GERMAN, _("German")),
+    (LANG_FRENCH, _("French")),
+    (LANG_SPANISH, _("Spanish")),
+    (LANG_POLISH, _("Polish"))
+    )
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 '''
