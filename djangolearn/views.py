@@ -14,6 +14,7 @@ from django.core import serializers
 
 from djangolearn.forms import LanguageSelectForm
 from djangolearn.models import Language, Phrase
+from djangolearn.utils import PhrasePicker
 
 
 class LearnView(LoginRequiredMixin, View):
@@ -149,4 +150,22 @@ class AddLanguageView(LoginRequiredMixin, View):
             return JsonResponse(reason)
         except json.JSONDecodeError as err:
             return JsonResponse({"error": err.msg})
+
+
+class LearningLanguageView(View):
+    def get(self, request, *args, **kwargs):
+        print("get")
+        language = kwargs.get("language").lower()
+        # Check if language is defined in settings
+        func = lambda tuple_:  language in tuple_
+        if not language or not list(filter(func, settings.LANG_CHOICES)):
+            return JsonResponse({"error":
+                                f"Language named {language} does not exist"})
+
+        else:
+            phrase = PhrasePicker.get_random_phrase(language_name=language)
+            print(phrase)
+            return JsonResponse(serializers.serialize("json", [phrase]), safe=False)
+
+
 
