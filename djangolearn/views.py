@@ -154,7 +154,6 @@ class AddLanguageView(LoginRequiredMixin, View):
 
 class LearningLanguageView(View):
     def get(self, request, *args, **kwargs):
-        print("get")
         language = kwargs.get("language").lower()
         # Check if language is defined in settings
         func = lambda tuple_:  language in tuple_
@@ -164,8 +163,10 @@ class LearningLanguageView(View):
 
         else:
             phrase = PhrasePicker.get_random_phrase(language_name=language)
-            print(phrase)
-            return JsonResponse(serializers.serialize("json", [phrase]), safe=False)
+            fields = ("id", "non_translated_text", "translated_text",
+                      "language", "user", "priority")
+            json_ = serializers.serialize("json", [phrase], fields=fields)
+            return JsonResponse(json_,  safe=False)
 
 
 

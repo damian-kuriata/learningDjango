@@ -4,7 +4,7 @@ from djangolearn.models import Phrase, Language
 
 class PhrasePicker:
     '''Class that can be used to obtain phrase with random id'''
-
+    # TODO: Write unit tests for get_random_phrase
     @staticmethod
     def get_random_phrase(min_interval=None, max_interval=None, language_name=None):
         """
@@ -39,6 +39,8 @@ class PhrasePicker:
                                                     language_name)
             else:
                 all_phrases = Phrase.objects.all()
+            if all_phrases.count() == 0:
+                raise ValueError("No phrases")
 
             ids_and_weights = [(phrase.id, phrase.priority) for
                               phrase in all_phrases]
@@ -54,8 +56,12 @@ class PhrasePicker:
                 except (Phrase.DoesNotExist, Phrase.MultipleObjectsReturned):
                     raise Exception("Unknown exception raised.")
             else:
-                population, weights = ids_and_weights
-                random_phrase_id = random.choices(population, weights)
+                population = []
+                weights = []
+                for t in ids_and_weights:
+                    population.append(t[0])
+                    weights.append(t[1])
+                random_phrase_id = random.choices(population, weights)[0]
                 try:
                     return Phrase.objects.get(id=random_phrase_id)
                 except (Phrase.DoesNotExist, Phrase.MultipleObjectsReturned):
@@ -67,4 +73,7 @@ class PhrasePicker:
         if max_interval > max_id:
             raise ValueError(f"max_interval is greater than max id {max_id}")
 
+    @staticmethod
+    def check_translated_text(translated_text):
+        raise NotImplemented
 
