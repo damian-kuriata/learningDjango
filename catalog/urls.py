@@ -16,5 +16,5 @@ urlpatterns = [
     path("upload-image/", upload_image, name="upload-image"),
     path("search/<query>", search, name="search"),
     path("image/<int:image_id>/add-comment/", add_comment, name="add-comment"),
-    path("test/", test, name="test")
+
 ]

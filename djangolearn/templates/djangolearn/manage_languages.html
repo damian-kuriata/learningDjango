@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate 'Manage languages' %}{% endblock %}
+{% block content %}
+    <h1 class="main-header">{% translate 'Manage languages' %}</h1>
+    <label for="add-language-input">{% translate 'Add new language'%}</label>
+    <div class="add-language-container"><input type="text" id="add-language-input" name="add-language-input">
+        <button type="button" id="add-language-button">{% translate 'Add'%}</button>
+    </div>
+
+    <ol class="languages-list">
+        {% if user_languages|length == 0 %}
+            <p> {% translate 'Languages list is empty' %}</p>
+        {% else %}
+        {% for language in user_languages %}
+        <li>
+            <div>
+                <span>{{ language }}</span>
+                <button type="button" id="manage-phrases-button">{% translate 'Manage phrases' %}</button>
+                <button type="button" id="learn-button">{% translate 'Learn' %}</button>
+                <button type="button" id="delete-language-button">{% translate 'Delete language' %}</button>
+            </div>
+        </li>
+        {% endfor %}
+        {% endif  %}
+    </ol>
+{% endblock %}

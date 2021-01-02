@@ -6,6 +6,8 @@
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <title>{% block title %}{% endblock %}</title>
+        <!-- JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     {% load i18n %}
     <body>
@@ -16,16 +18,14 @@
             {# TODO: Add rolling button onclick in JS #}
             <div class="navigation-rolling-button"></div>
 
-            <div class="navigation navigation-hidden">
+            <div class="navigation">
                 <div class="search-container">
                     <input type="search" aria-label="{% translate 'Search trough site' %}" placeholder="{% translate 'Search' %}">
                     <button class="search-button"></button>
                  </div>
                 <div><a href="#">{% translate 'Learn' context 'Imperative' %}</a></div>
-                <div><a href="#">{% translate 'Your languages' %}</a></div>
-                <div><a href="#">{% translate 'Your phrases' %}</a></div>
-                <div><a href="#">{% translate 'Add language' %}</a></div>
-                <div><a href="#">{% translate 'Add phrases' %}</a></div>
+                <div><a href="#">{% translate 'Manage languages' %}</a></div>
+                <div><a href="#">{% translate 'Manage phrases' %}</a></div>
                 <div><a href="#">{% translate 'Account settings' %}</a></div>
                 {% if user.is_authenticated %}
                 <div><a href="{% url 'logout' %}">{% translate 'Logout' %}</a></div>

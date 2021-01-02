@@ -41,13 +41,15 @@ a:active {
     position: fixed;
     top: 0;
     left: 0;
+    opacity: 1;
     background-color: rgba(175, 190, 240, .9);
 }
 .navigation-visible {
     visibility: visible;
 }
 .navigation-hidden {
-    visibility: hidden;
+    opacity: 0;
+    /*visibility: hidden;*/
 }
 .navigation-rolling-button {
     position: fixed;
@@ -109,7 +111,7 @@ a:active {
 }
 .main-header {
     font-size: .9em;
-    margin-left: .3em;
+    text-align: center;
 }
 .message-success {
     background-color: rgba(15, 153, 5, .7);
@@ -119,6 +121,37 @@ a:active {
 }
 .message-error {
     background-color: rgba(194, 4, 23, .7);
+}
+label[for='add-language-input'] {
+    padding: 0;
+    display: block;
+    font-size: .5em;
+    margin: 0 0 -.3em .3em;
+}
+#add-language-input {
+    margin: 0 .1em 0 .3em;
+    padding: 0;
+}
+.add-language-container {
+    display: inline-flex;
+    flex: 0 0 1;
+}
+.languages-list {
+    font-size: .5em;
+}
+.languages-list li {
+    padding: 0;
+    margin: 0 .3em 0 0;
+}
+.languages-list li div {
+    display: flex;
+    flex: 0 0 1;
+}
+.languages-list li div * {
+    margin-right: .3em;
+}
+.languages-list button {
+
 }
 .image-container-thumb {
     margin: 0 0 1.5em .7em;
