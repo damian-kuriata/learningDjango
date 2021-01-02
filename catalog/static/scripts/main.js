@@ -106,6 +106,9 @@ function addDeleteLanguageButtonOnclicks() {
         let deleteLanguageButton = children.eq(3);
 
         // TODO: Add other button onclicks
+        managePhrasesButton.click(() => {
+            window.location.href = "/djangolearn/manage-phrases/";
+        });
         deleteLanguageButton.click(() => {
             const requestUrl = `/djangolearn/api/languages/${languageName}/`;
             const csrftoken = getCookie("csrftoken");
@@ -145,7 +148,7 @@ function addDeleteLanguageButtonOnclicks() {
 }
 $(document).ready(() => {
     const removingTimeout = 1000;
-    $(".navigation").addClass("navigation-hidden");
+    //$(".navigation").addClass("navigation-hidden");
 
    setTimeout(removeMessages, removingTimeout);
    addNavigationRollingButtonOnclick();
