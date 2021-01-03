@@ -13,12 +13,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 
 from djangolearn.forms import LanguageSelectForm
-from djangolearn.models import Language
+from djangolearn.models import Language, Phrase
+from djangolearn.utils import PhrasePicker
 
 
 class LearnView(LoginRequiredMixin, View):
     form_class = LanguageSelectForm
-    template_name = "djangolearn/language_select_form.html"
+    select_template_name = "djangolearn/language_select_form.html"
+    learn_template_name = "djangolearn/learn.html"
+
 
     def get(self, request, *args, **kwargs):
         language_to_learn = kwargs.get("language", '')
@@ -27,15 +30,18 @@ class LearnView(LoginRequiredMixin, View):
             language_to_learn not in settings.LANG_CHOICES[0]:
             # If no language is selected or language is wrong, (re)display form
             form = self.form_class()
-            return render(request, self.template_name, {"form": form})
+            return render(request, self.select_template_name, {"form": form})
+        else:
+            return render(request, self.learn_template_name,
+                          {"language": language_to_learn})
+
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            learn_arg = form.cleaned_data["language"]
-            print(learn_arg)
-            # TODO: write this method
-            return HttpResponseRedirect(reverse("djangolearn:learn"))
+            lang = form.cleaned_data["language"]
+            return HttpResponseRedirect(reverse("djangolearn:learn",
+                                                kwargs={"language": lang}))
 
 
 class ManageLanguagesView(LoginRequiredMixin, View):
@@ -45,6 +51,19 @@ class ManageLanguagesView(LoginRequiredMixin, View):
         user_languages = request.user.language_set.all().order_by("name")
         return render(request, self.template_name,
                       {"user_languages": user_languages})
+
+
+class ManagePhrasesView(LoginRequiredMixin, View):
+    template_name = "djangolearn/manage_phrases.html"
+
+    def get(self, request, *args, **kwargs):
+        language_filter = request.GET.get("language").strip()
+        if language_filter:
+            phrases = Phrase.objects.filter(language__name__iexact=
+                                            language_filter)
+        else:
+            phrases = Phrase.objects.all()
+        return render(request, self.template_name, {"phrases": phrases})
 
 # --- API ---
 class LanguageView(View):
@@ -132,6 +151,22 @@ class AddLanguageView(LoginRequiredMixin, View):
         except json.JSONDecodeError as err:
             return JsonResponse({"error": err.msg})
 
+
+class LearningLanguageView(View):
+    def get(self, request, *args, **kwargs):
+        language = kwargs.get("language").lower()
+        # Check if language is defined in settings
+        func = lambda tuple_:  language in tuple_
+        if not language or not list(filter(func, settings.LANG_CHOICES)):
+            return JsonResponse({"error":
+                                f"Language named {language} does not exist"})
+
+        else:
+            phrase = PhrasePicker.get_random_phrase(language_name=language)
+            fields = ("non_translated_text", "translated_text",
+                      "language", "user", "priority")
+            json_ = serializers.serialize("json", [phrase], fields=fields)
+            return JsonResponse(json_,  safe=False)
 
 
 

@@ -1,17 +1,5 @@
-function getCookie(name) {
-    let cookieValue = null;
-    if(document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for(let i=0; i<cookies.length; i++) {
-            let cookie = cookies[i].trim();
-            if(cookie.substring(0, name.length+1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
+import {getCookie, escapeHTML} from "./modules/utils.js";
+
 function removeMessages() {
     let container = $(".messages-container").first();
     const animationDurationMs = 200;
@@ -106,6 +94,9 @@ function addDeleteLanguageButtonOnclicks() {
         let deleteLanguageButton = children.eq(3);
 
         // TODO: Add other button onclicks
+        managePhrasesButton.click(() => {
+            window.location.href = "/djangolearn/manage-phrases/";
+        });
         deleteLanguageButton.click(() => {
             const requestUrl = `/djangolearn/api/languages/${languageName}/`;
             const csrftoken = getCookie("csrftoken");
@@ -145,7 +136,7 @@ function addDeleteLanguageButtonOnclicks() {
 }
 $(document).ready(() => {
     const removingTimeout = 1000;
-    $(".navigation").addClass("navigation-hidden");
+    //$(".navigation").addClass("navigation-hidden");
 
    setTimeout(removeMessages, removingTimeout);
    addNavigationRollingButtonOnclick();
