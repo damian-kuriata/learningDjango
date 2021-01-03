@@ -168,5 +168,29 @@ class LearningLanguageView(View):
             json_ = serializers.serialize("json", [phrase], fields=fields)
             return JsonResponse(json_,  safe=False)
 
+    def post(self, request, *args, **kwargs):
+        language = kwargs.get("language").lower()
+        # Check if language is defined in settings
+        func = lambda tuple_: language in tuple_
+        if not language or not list(filter(func, settings.LANG_CHOICES)):
+            return JsonResponse({"error":
+                                     f"Language named {language} does not exist"})
+        try:
+            request_json = json.loads(request.body)
+            print(request_json)
+            translation_direction = request_json["direction"]
+            translation_direction = translation_direction.strip().lower()
+            translated_phrase = request_json["phrase"]
+            if translation_direction == "to_foreign":
+                pass
+            elif translation_direction == "from_foreign":
+                pass
+            else:
+                return JsonResponse({"error": "Unknown translation direction"})
+        except json.JSONDecodeError as e:
+            return JsonResponse({"error": e.msg})
+
+
+
 
 
