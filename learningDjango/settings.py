@@ -94,7 +94,6 @@ DATABASES = {
         'OPTIONS': {'sslmode': 'require'}
     }
 }
-print(DATABASES["default"]["PASSWORD"])
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
