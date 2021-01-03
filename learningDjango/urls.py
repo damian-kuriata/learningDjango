@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.i18n import JavaScriptCatalog
 
 from catalog.views import register
 from learningDjango import settings
@@ -25,5 +26,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register/', register, name="register"),
     path('catalog/', include('catalog.urls')),
-    path('djangolearn/', include('djangolearn.urls', namespace="djangolearn"))
+    path('djangolearn/', include('djangolearn.urls', namespace="djangolearn")),
+    # Needed to access translation functions (e.g. gettext)
+    # from within JavaScript
+    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 ]

@@ -18,6 +18,10 @@
             {% endcomment %}
             <textarea id="translated-text-input" placeholder="{% translate 'Type here...' %}"></textarea>
         </div>
-        <button type="button" id="next-button">{% translate 'Next' %}</button>
+        <div>
+            <button type="button" id="next-button">{% translate 'Next' context 'Feminine'%}</button>
+        </div>
     </div>
+    {% load static %}
+    <script type="module" src="{% static 'scripts/learning.js' %}"></script>
 {% endblock %}

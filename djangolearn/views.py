@@ -163,7 +163,7 @@ class LearningLanguageView(View):
 
         else:
             phrase = PhrasePicker.get_random_phrase(language_name=language)
-            fields = ("id", "non_translated_text", "translated_text",
+            fields = ("non_translated_text", "translated_text",
                       "language", "user", "priority")
             json_ = serializers.serialize("json", [phrase], fields=fields)
             return JsonResponse(json_,  safe=False)
