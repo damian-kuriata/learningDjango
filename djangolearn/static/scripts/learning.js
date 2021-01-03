@@ -25,7 +25,7 @@ function getPhraseFromServer(url) {
             translated_text: data[0].fields.translated_text
         };
     }).catch((e) => {
-        alert("Something went wrong: " + e.message);
+        alert(gettext("Something went wrong: ") + e.message);
         return undefined;
     }));
 }
@@ -47,7 +47,7 @@ $(document).ready(() => {
     nextButton.click(() => {
         let inputPhrase = translatedTextInput.val();
         if(!inputPhrase || inputPhrase === '') {
-            alert("At first type something!");
+            alert(gettext("At first type something!"));
         }
         else {
             console.log("else");
@@ -64,7 +64,8 @@ $(document).ready(() => {
     });
     getPhraseFromServer(phraseUrl).then((phrase) => {
         if(phrase === undefined) {
-            originalTextContainer.text("Something went wrong, refresh the page");
+            originalTextContainer.text(
+                gettext("Something went wrong, refresh the page"));
         }
         else {
             originalTextContainer.text(phrase.non_translated_text);
