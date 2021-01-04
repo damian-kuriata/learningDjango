@@ -1,7 +1,8 @@
 import {getCookie, escapeHTML} from "./modules/utils.js";
 
-// A phrase a user is currently working upon
-let currentPhrase;
+// Bool that indicated whether phrase was fetched from server or not
+let canFetchPhrase;
+let fetchedPhrase;
 
 function getServerResponse(url) {
     let csrftoken = getCookie("csrftoken");
@@ -26,7 +27,6 @@ function getPhraseFromServer(url) {
     }).then((data) => {
         // Convert JSON string to Javascript object
         data = JSON.parse(data);
-        console.log("end get");
         return {
             id: data[0].pk,
             non_translated_text: data[0].fields.non_translated_text,
@@ -38,9 +38,9 @@ function getPhraseFromServer(url) {
     }));
 }
 function checkPhraseWithServer(phrase, url, translation_direction) {
-    let csrftoken = getCookie("csrftoken");;
+    let csrftoken = getCookie("csrftoken");
     let dataToSend = {
-        phrase_id: currentPhrase.id,
+        phrase_id: fetchedPhrase.id,
         direction: translation_direction,
         translated_phrase: phrase
     }
@@ -64,14 +64,33 @@ function checkPhraseWithServer(phrase, url, translation_direction) {
         return data.correct;
     })
 }
-$(document).ready(() => {
-
+function updateOriginalTextContainer(text) {
     const originalTextContainer = $(".original-text-container");
+    if(text === undefined) {
+            originalTextContainer.text(
+                gettext("Something went wrong, refresh the page"));
+        }
+        else {
+            originalTextContainer.text(text);
+        }
+}
+$(document).ready(() => {
     const translatedTextInput = $("#translated-text-input");
     const nextButton = $("#next-button");
     const phraseUrl = "/djangolearn/api/learning-language/en/";
 
-    nextButton.click(async () => {
+    nextButton.click(async (event) => {
+        // TODO: implement preventing of clicking button until phrase is fetched
+        if(!event.detail || event.detail === 2) {
+            console.log("click");
+        }
+        // Wait a specified amount of seconds before fetching next phrase
+        setTimeout(() => {
+            canFetchPhrase = true;
+        }, 2000);
+        if(!canFetchPhrase) {
+            return;
+        }
         let inputPhrase = translatedTextInput.val();
         if(!inputPhrase || inputPhrase === '') {
             alert(gettext("At first type something!"));
@@ -80,28 +99,19 @@ $(document).ready(() => {
             let phraseCorrect = await checkPhraseWithServer(inputPhrase, phraseUrl,
                 "to_foreign").then(result => result);
             // Display a message to user whether translation is correct or not..
+            console.log("set false");
+            canFetchPhrase = false;
             getPhraseFromServer(phraseUrl).then((phrase) => {
-                if(phrase === undefined) {
-                    originalTextContainer.text(
-                    gettext("Something went wrong, refresh the page"));
-                }
-                else {
-                    originalTextContainer.text(phrase.non_translated_text);
-                    currentPhrase = phrase;
-                }
+                console.log("set true");
+                fetchedPhrase = phrase;
+                updateOriginalTextContainer(phrase.non_translated_text);
             });
         }
     });
-    // Get phrase form server for the first time
+    canFetchPhrase = true;
     getPhraseFromServer(phraseUrl).then((phrase) => {
-        if(phrase === undefined) {
-            originalTextContainer.text(
-                gettext("Something went wrong, refresh the page"));
-        }
-        else {
-            originalTextContainer.text(phrase.non_translated_text);
-            currentPhrase = phrase;
-        }
+        fetchedPhrase = phrase;
+        updateOriginalTextContainer(phrase.non_translated_text);
     });
 
 })
