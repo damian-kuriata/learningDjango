@@ -6,7 +6,9 @@ class PhrasePicker:
     '''Class that can be used to obtain phrase with random id'''
     # TODO: Write unit tests for get_random_phrase
     @staticmethod
-    def get_random_phrase(min_interval=None, max_interval=None, language_name=None):
+    def get_random_phrase(min_interval=None,
+                          max_interval=None,
+                          language_name=None):
         """
         Return a random Phrase object. When intervals are None,
             Phrase priority will be taken into account.
@@ -25,7 +27,7 @@ class PhrasePicker:
                 be picked.
 
         Returns:
-            Phrase: with randomly generated id
+            Phrase object with randomly generated id
         """
         selected_languages = Language.objects.filter(name__iexact=
                                                     language_name).first()
@@ -72,8 +74,4 @@ class PhrasePicker:
         max_id = Phrase.objects.all().order_by("-id").first().id
         if max_interval > max_id:
             raise ValueError(f"max_interval is greater than max id {max_id}")
-
-    @staticmethod
-    def check_translated_text(translated_text):
-        raise NotImplemented
 
