@@ -177,6 +177,24 @@ label[for='add-language-input'] {
     margin: -5px;
     padding: 0;
 }
+.job-msg {
+    display: none;
+    position: absolute;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    z-index: 4;
+    font-size: 2em;
+    font-weight: bold;
+}
+.goodjob-msg {
+    color: #00a344;
+    top: 50%;
+}
+.badjob-msg {
+    color: red;
+    top: 35%;
+}
 .translated-text-container {
     margin: 0;
     overflow: auto;

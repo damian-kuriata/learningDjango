@@ -78,6 +78,30 @@ function updateTextContainers(text) {
         originalTextContainer.text(text);
     }
 }
+function onPhraseCorrect() {
+    const goodjob = document.querySelector("#goodjob");
+    const goodjobMsg = $("p.goodjob-msg");
+    goodjobMsg.show();
+    goodjob.play();
+    // Hide after specified seconds
+    const timeout = 1500;
+    setTimeout(() => {
+        goodjobMsg.hide();
+    }, timeout);
+
+}
+function onPhraseIncorrect() {
+    const badjob = document.querySelector("#badjob");
+    const badjobMsg = $("p.badjob-msg");
+    badjobMsg.show();
+    badjob.play();
+    // Hide after specified seconds
+    const timeout = 1500;
+    setTimeout(() => {
+
+        badjobMsg.hide();
+    }, timeout);
+}
 $(document).ready(() => {
     const translatedTextInput = $("#translated-text-input");
     const nextButton = $("#next-button");
@@ -89,11 +113,17 @@ $(document).ready(() => {
             alert(gettext("At first type something!"));
         }
         else {
-            // Disable button until phrase is checked and next is fetched
+            // Disable button until phrase is checked and next phrase is fetched
             nextButton.prop("disabled", true);
             let phraseCorrect = await checkPhraseWithServer(inputPhrase, phraseUrl,
                 "to_foreign").then(result => result);
             // Display a message to user whether translation is correct or not..
+            if(phraseCorrect) {
+                onPhraseCorrect();
+            }
+            else {
+                onPhraseIncorrect();
+            }
             getPhraseFromServer(phraseUrl).then((phrase) => {
                 canFetchPhrase = true;
                 nextButton.prop("disabled", false);

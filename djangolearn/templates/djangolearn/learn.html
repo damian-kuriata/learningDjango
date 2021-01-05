@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
 {% block title %}{% translate 'Learn' %}{% endblock %}
 {% block content %}
-    <h1 class="main-header translate-header">{% translate 'Translate' context 'Imprerative' %}</h1>
+    <h1 class="main-header translate-header">
+        {% translate 'Translate' context 'Imprerative' %}
+    </h1>
     {#   <h1 class="main-header arrange-header">{% translate 'Arrange words' %}</h1> #}
     <div class="learning-container">
         <div class="original-text-container">
 
         </div>
+        <p class="job-msg goodjob-msg">{% translate 'Good job!' %}</p>
+        <p class="job-msg badjob-msg">{% translate 'Wrong! Try again' %}</p>
         <div class="arrow">
             ⇓
         </div>
@@ -18,10 +23,11 @@
             {% endcomment %}
             <input type="text" id="translated-text-input" placeholder="{% translate 'Type here...' %}">
         </div>
+        <audio id="goodjob" src="{% static 'sounds/goodjob.wav' %}"></audio>
+        <audio id="badjob" src="{% static 'sounds/badjob.wav' %}"></audio>
         <div>
             <button type="button" id="next-button">{% translate 'Next' context 'Feminine'%}</button>
         </div>
     </div>
-    {% load static %}
     <script type="module" src="{% static 'scripts/learning.js' %}"></script>
 {% endblock %}
