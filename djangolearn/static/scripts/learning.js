@@ -64,15 +64,19 @@ function checkPhraseWithServer(phrase, url, translation_direction) {
         return data.correct;
     })
 }
-function updateOriginalTextContainer(text) {
+function updateTextContainers(text) {
     const originalTextContainer = $(".original-text-container");
+    const translatedTextInput = $("#translated-text-input");
+    // Clear text in input
+    translatedTextInput.val('');
     if(text === undefined) {
-            originalTextContainer.text(
-                gettext("Something went wrong, refresh the page"));
-        }
-        else {
-            originalTextContainer.text(text);
-        }
+        originalTextContainer.text(
+            gettext("Something went wrong, refresh the page")
+        );
+    }
+    else {
+        originalTextContainer.text(text);
+    }
 }
 $(document).ready(() => {
     const translatedTextInput = $("#translated-text-input");
@@ -80,7 +84,6 @@ $(document).ready(() => {
     const phraseUrl = "/djangolearn/api/learning-language/en/";
 
     nextButton.click(async (event) => {
-        console.log("click");
         let inputPhrase = translatedTextInput.val();
         if(!inputPhrase || inputPhrase === '') {
             alert(gettext("At first type something!"));
@@ -91,18 +94,17 @@ $(document).ready(() => {
             let phraseCorrect = await checkPhraseWithServer(inputPhrase, phraseUrl,
                 "to_foreign").then(result => result);
             // Display a message to user whether translation is correct or not..
-            console.log("Prop: " + nextButton.prop("disabled"));
             getPhraseFromServer(phraseUrl).then((phrase) => {
                 canFetchPhrase = true;
                 nextButton.prop("disabled", false);
                 fetchedPhrase = phrase;
-                updateOriginalTextContainer(phrase.non_translated_text);
+                updateTextContainers(phrase.non_translated_text);
             });
         }
     });
     getPhraseFromServer(phraseUrl).then((phrase) => {
         fetchedPhrase = phrase;
-        updateOriginalTextContainer(phrase.non_translated_text);
+        updateTextContainers(phrase.non_translated_text);
     });
 
 })
