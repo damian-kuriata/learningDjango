@@ -1,7 +1,7 @@
 import {getCookie, escapeHTML} from "./modules/utils.js";
 
 // Bool that indicated whether phrase was fetched from server or not
-let canFetchPhrase;
+let canFetchPhrase = false;
 let fetchedPhrase;
 
 function getServerResponse(url) {
@@ -80,35 +80,26 @@ $(document).ready(() => {
     const phraseUrl = "/djangolearn/api/learning-language/en/";
 
     nextButton.click(async (event) => {
-        // TODO: implement preventing of clicking button until phrase is fetched
-        if(!event.detail || event.detail === 2) {
-            console.log("click");
-        }
-        // Wait a specified amount of seconds before fetching next phrase
-        setTimeout(() => {
-            canFetchPhrase = true;
-        }, 2000);
-        if(!canFetchPhrase) {
-            return;
-        }
+        console.log("click");
         let inputPhrase = translatedTextInput.val();
         if(!inputPhrase || inputPhrase === '') {
             alert(gettext("At first type something!"));
         }
         else {
+            // Disable button until phrase is checked and next is fetched
+            nextButton.prop("disabled", true);
             let phraseCorrect = await checkPhraseWithServer(inputPhrase, phraseUrl,
                 "to_foreign").then(result => result);
             // Display a message to user whether translation is correct or not..
-            console.log("set false");
-            canFetchPhrase = false;
+            console.log("Prop: " + nextButton.prop("disabled"));
             getPhraseFromServer(phraseUrl).then((phrase) => {
-                console.log("set true");
+                canFetchPhrase = true;
+                nextButton.prop("disabled", false);
                 fetchedPhrase = phrase;
                 updateOriginalTextContainer(phrase.non_translated_text);
             });
         }
     });
-    canFetchPhrase = true;
     getPhraseFromServer(phraseUrl).then((phrase) => {
         fetchedPhrase = phrase;
         updateOriginalTextContainer(phrase.non_translated_text);
