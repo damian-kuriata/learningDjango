@@ -32,8 +32,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "SECRET")
 DEBUG = False
 # Application definition
 
-ALLOWED_HOSTS = ["damiankuriata.herokuapp.com"]
-test  = "123"
+ALLOWED_HOSTS = ["damiankuriata.herokuapp.com", "127.0.0.1"]
 INSTALLED_APPS = [
     'corsheaders',
     'django.contrib.admin',
@@ -147,6 +146,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "damian.kuriata2001@gmail.com"
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 EMAIL_USE_TLS = True
+ADMINS = [("Damian", "damian.kuriata2001@gmail.com")]
 
 MEDIA_ROOT = "C:\\Users\\damia\\PycharmProjects\\learningDjango\\media"
 MEDIA_URL = "/uploaded/"
