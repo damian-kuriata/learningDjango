@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "SECRET")
 DEBUG = False
 # Application definition
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["damiankuriata.herokuapp.com"]
 INSTALLED_APPS = [
     'corsheaders',
     'django.contrib.admin',
@@ -135,6 +135,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 LOGIN_REDIRECT_URL = reverse_lazy("index")
 
 if DEBUG:
