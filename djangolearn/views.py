@@ -1,4 +1,5 @@
 import json
+from time import sleep
 
 from django.conf import settings
 from django.contrib import messages
@@ -178,15 +179,18 @@ class LearningLanguageView(View):
         try:
             request_json = json.loads(request.body)
             print(request_json)
+            phrase_id = request_json["phrase_id"]
             translation_direction = request_json["direction"]
             translation_direction = translation_direction.strip().lower()
-            translated_phrase = request_json["phrase"]
-            if translation_direction == "to_foreign":
-                pass
-            elif translation_direction == "from_foreign":
-                pass
-            else:
-                return JsonResponse({"error": "Unknown translation direction"})
+            translated_phrase = request_json["translated_phrase"]
+
+            language_object = Language.objects.get(name__iexact=language)
+            phrase_object = Phrase.objects.get(id=phrase_id)
+            print(phrase_object.translated_text)
+            correct = language_object.check_phrase(phrase_object,
+                                                   translated_phrase,
+                                                   translation_direction)
+            return JsonResponse({"correct": correct})
         except json.JSONDecodeError as e:
             return JsonResponse({"error": e.msg})
 

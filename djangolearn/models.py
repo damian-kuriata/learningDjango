@@ -29,6 +29,35 @@ class Language(models.Model):
         verbose_name = _("language")
         verbose_name_plural = _("languages")
 
+    def check_phrase(self, phrase, translated_phrase, translation_direction):
+        """
+        Check if phrase is correct
+
+        :param phrase: Phrase object
+        :param translated_phrase: string: a phrase translated by user
+        :param translation_direction: 'to_foreign' or 'from_foreign'
+        :return: bool, depending on the phrase is correct or not
+        """
+
+        original_phrase = phrase.translated_text.strip().lower()
+        translated_phrase = translated_phrase.strip().lower()
+
+        # Replace 2 or more spaces with only one space
+        original_phrase = re.sub(r" {2,}", " ", original_phrase)
+        translated_phrase = re.sub(r" {2,}", " ", translated_phrase)
+        # Remove all newline characters (e.g. replace them with empty string)
+        original_phrase = original_phrase.replace("\n", "")
+        translated_phrase = translated_phrase.replace("\n", "")
+
+        translation_direction = translation_direction.strip().lower()
+        # TODO: Implement actual checking
+        print("check original", original_phrase)
+        print("check translated", translated_phrase)
+        print("check type", original_phrase == translated_phrase)
+        return original_phrase == translated_phrase
+        if self.name == settings.LANG_ENGLISH:
+            pass
+
     # TODO: implement 'get_absolute_url' method
     def __str__(self):
         return self.name
