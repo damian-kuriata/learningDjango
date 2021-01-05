@@ -29,10 +29,9 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-DEBUG = False
+DEBUG = True
 # Application definition
 
-ALLOWED_HOSTS = ["damiankuriata.herokuapp.com"]
 INSTALLED_APPS = [
     'corsheaders',
     'django.contrib.admin',
