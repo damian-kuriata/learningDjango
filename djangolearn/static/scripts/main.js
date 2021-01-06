@@ -9,15 +9,17 @@ function addNavigationRollingButtonOnclick() {
     const button = $(".navigation-rolling-button");
     const navigation = $(".navigation");
     button.click(() => {
-        if(navigation.hasClass("navigation-hidden")) {
-            navigation.fadeIn(400, () => {
-                navigation.removeClass("navigation-hidden");
+        // Show navigation when it's hidden and hide when shown
+        // is(':hidden') checks display attribute, it becomes
+        // true when display is none
+        if(navigation.is(":hidden")) {
+            console.log("hidden");
+            navigation.show(300, () => {
+                navigation.css("display", "flex")
             });
         }
         else {
-            navigation.fadeOut(400, () => {
-                navigation.addClass("navigation-hidden");
-            });
+            navigation.hide(300);
         }
     })
 }

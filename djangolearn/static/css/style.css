@@ -6,6 +6,11 @@ body {
     background-color: #edf1f7;
     position: relative;
     min-height: 95%;
+    width: 100%;
+}
+main {
+    width: 100%;
+    height: 100%;
 }
 a {
     text-decoration: none;
@@ -31,12 +36,11 @@ a:active {
 }
 
 .navigation {
-    display: flex;
     flex-flow: column;
     align-items: center;
     flex: 1 1 0;
     padding: 0.5em 0 0.5em 0;
-    font-size: 2em;
+    font-size: 1.3em;
     width: 100%;
     position: fixed;
     top: 0;
@@ -44,12 +48,12 @@ a:active {
     opacity: 1;
     background-color: rgba(175, 190, 240, .9);
 }
-.navigation-visible {
-    visibility: visible;
-}
 .navigation-hidden {
-    opacity: 0;
-    /*visibility: hidden;*/
+    display: none;
+}
+.navigation-visible {
+    display: flex;
+    color: red;
 }
 .navigation-rolling-button {
     position: fixed;
@@ -60,9 +64,10 @@ a:active {
     z-index: 3;
     font-size: .7em;
     background-image: url("../images/navigation.png");
-    width: 5%;
-    height: 5%;
+    width: 10%;
+    height: 10%;
     background-size: contain;
+    background-repeat: no-repeat;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -160,22 +165,25 @@ label[for='add-language-input'] {
     flex-direction: column;
     align-items: center;
     font-size: 1em;
-    flex: 1 1 0;
+    width: 100%;
+    /* TODO: Fix height to percentage */
+    height: 80vh;
 }
 .original-text-container {
     overflow: auto;
-    width: 80vw;
-    height: 30vh;
+    width: 80%;
+    height: 30%;
     border: thick double #47b374;
     border-radius: .3em;
     padding: 3px;
     word-wrap: break-word;
+    flex: 1 1 0;
 }
 .arrow {
     font-size: 3em;
     color: #47b374;
-    margin: -5px;
     padding: 0;
+    border: 1px solid red;
 }
 .job-msg {
     display: none;
@@ -198,11 +206,12 @@ label[for='add-language-input'] {
 .translated-text-container {
     margin: 0;
     overflow: auto;
-    width: 80vw;
-    height: 30vh;
+    width: 80%;
+    height: 30%;
     border: thick double #47b374;
     border-radius: .3em;
     margin-bottom: .5em;
+    flex: 1 1 0;
 }
 #translated-text-input {
     border: none;
@@ -244,13 +253,17 @@ label[for='add-language-input'] {
 .current-page-link {
     color: red;
 }
+footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
 .footer {
     font-size: 0.5em;
     text-align: center;
     font-weight: lighter;
-    /*margin-bottom: .7em;*/
-    position: absolute;
-    bottom: .4em;
-    right: 0;
-    left: 0;
+    margin: 0;
+    padding: 0;
+    margin-bottom: .7em;
 }

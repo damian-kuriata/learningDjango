@@ -6,6 +6,7 @@ body {
     background-color: #edf1f7;
     position: relative;
     min-height: 95%;
+    color: red;
 }
 a {
     text-decoration: none;
@@ -245,12 +246,12 @@ label[for='add-language-input'] {
     color: red;
 }
 .footer {
-    font-size: 0.5em;
+    font-size: 5em;
     text-align: center;
     font-weight: lighter;
     /*margin-bottom: .7em;*/
     position: absolute;
-    bottom: .4em;
+    bottom: 2%;
     right: 0;
     left: 0;
 }
